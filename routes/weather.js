@@ -68,10 +68,15 @@ async function scrape(url, update) {
     }
   } else if(url === ACCU_URL) {
     const ACCUData = await scrapeACCU.getData(page, url);
-    console.log('did this run');
+    browser.close();
+    if(ACCUData && !update) {
+      await createNewDocument(ACCUData);
+      return(ACCUData);
+    } else if(ACCUData && update) {
+      await findAndUpdate(ACCUData, url);
+      return(ACCUData);
+    }
   }
-  
-  // console.log(BOMdata);
   browser.close();
 }
 
@@ -90,7 +95,7 @@ async function checkLastUpdate(url) {
         return(weatherData.data);
       }
     } else {
-      // document doesnt exist -> make it
+      // make new document
       return(await scrape(url, update));
     }
   } catch (error) {

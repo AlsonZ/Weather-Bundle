@@ -17,13 +17,16 @@ function Weather(props) {
       }
       
     }
-    if(props.site === "bom.gov.au") {
+    if(props.site) {
       fetchURL(props.site);
     }
   },[])
 
   return (
     <div className="weather-container">
+      <a href={"http://www."+props.site} className="weather-url">
+        {props.site}
+      </a>
       {weatherInfo.map((weather,i) =>
         <WeatherCard key={i} weather={weather}/>
       )}

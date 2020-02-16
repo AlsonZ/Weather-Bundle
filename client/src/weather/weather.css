@@ -7,6 +7,12 @@
   border: 1px solid;
   margin: 1rem;
 }
+.weather-url {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: rgb(107, 206, 240);
+  text-decoration: none;
+}
 .weather-card-container {
   width: 95%;
   display: flex;
