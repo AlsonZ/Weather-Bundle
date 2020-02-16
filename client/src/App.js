@@ -4,8 +4,9 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app-container">
       <Weather site={'bom.gov.au'}/>
+      <Weather site={'accuweather.com'}/>
     </div>
   );
 }

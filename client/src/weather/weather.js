@@ -4,30 +4,28 @@ import './weather.css';
 
 function Weather(props) {
 
-  const [weatherInfo, setWeatherInfo] = useState([
-    {
-      day: "Monday",
-      image: "none",//use a name and import the svgs for different types?
-      minTemp: "19",
-      maxTemp: "25",
-      rainChance: "50%",
-      rainAmount: "10-50mm",
-      fireDanger: "nil",
-      UVIndex: "extreme"
-    }
-  ]);
+  const [weatherInfo, setWeatherInfo] = useState([]);
 
   useEffect(() => {
     //fetch weather site 1 data
+    async function fetchURL(url) {
+      const res = await fetch('/weatherAPI/getURL/'+url);
+      const resData = await res.json();
+      if(resData) {
+        console.log(resData);
+        setWeatherInfo(resData);
+      }
+      
+    }
     if(props.site === "bom.gov.au") {
-
+      fetchURL(props.site);
     }
   },[])
 
   return (
     <div className="weather-container">
-      {weatherInfo.map((weather) =>
-        <WeatherCard weather={weather}/>
+      {weatherInfo.map((weather,i) =>
+        <WeatherCard key={i} weather={weather}/>
       )}
     </div>
   );

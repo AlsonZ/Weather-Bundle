@@ -61,15 +61,15 @@ const getAll = async ({page, dayData, dayID}) => {
       }
       dayData.fireDanger = string;
     } else if (element.includes("UV Index")) {
-      const values = element.split(" ");
-      const value = values[values.length-1].slice(1,-1);
+      const values = element.split("[");
+      const value = values[values.length-1].slice(0, -1);
       dayData.UVIndex = value;
     }
   });
 }
 
 const getImage = async ({page, dayData, dayID}) => {
-  const elements = await page.$x(`//*[contains(@class, "day")]//img`);
+  const elements = await page.$x(`//*[contains(@class, "day")]//dd[@class="image"]/img`);
   const raw = await elements[dayID].getProperty('src');
   const src = await raw.jsonValue();
   dayData.image = src;

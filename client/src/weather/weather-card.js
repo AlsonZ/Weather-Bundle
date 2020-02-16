@@ -8,9 +8,9 @@ function WeatherCard({weather}) {
         <h1 className="weather-card-day">{weather.day}</h1>
         <div className="weather-card-content">
           <div className="weather-card-content-top-row">
-            <p className="weather-card-min-temp">{weather.minTemp}</p>
-            <img/>
-            <p className="weather-card-max-temp">{weather.maxTemp}</p>
+            <p className="weather-card-temp">{weather.minTemp}</p>
+            <img className="weather-card-image" src={weather.image}/>
+            <p className="weather-card-temp">{weather.maxTemp}</p>
           </div>
           <div className="weather-card-info-container">
             <span className="weather-card-rain-chance-title">Rain Chance: </span>
