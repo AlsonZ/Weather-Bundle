@@ -3,10 +3,12 @@ const router = express.Router();
 const puppeteer = require('puppeteer');
 const scrapeBOM = require('../scraping/scrape_bom');
 const scrapeACCU = require('../scraping/scrape_accu');
+const scrapeSMH = require('../scraping/scrape_smh');
 const Weather = require('../models/weather');
 
 const BOM_URL = "http://www.bom.gov.au/nsw/forecasts/sydney.shtml";
 const ACCU_URL = "https://www.accuweather.com/en/au/sydney/22889/daily-weather-forecast/22889";
+const SMH_URL = "http://weather.smh.com.au/local-forecast/nsw/sydney";
 
 router.get('/getURL/:url', async(req, res) => {
   let url;
@@ -14,15 +16,13 @@ router.get('/getURL/:url', async(req, res) => {
     url = BOM_URL;
   } else if(req.params.url === "accuweather.com") {
     url = ACCU_URL;
+  } else if(req.params.url === "weather.smh.com.au") {
+    url = SMH_URL;
   }
   const data = await checkLastUpdate(url);
   // console.log(data);
   res.json(data);
 })
-router.get('/getAll', async(req, res) => {
-  checkLastUpdate(req.body.url);
-})
-
 
 async function scrape(url, update) {
   const browser = await puppeteer.launch();
@@ -70,11 +70,26 @@ async function scrape(url, update) {
     const ACCUData = await scrapeACCU.getData(page, url);
     browser.close();
     if(ACCUData && !update) {
+      // new
       await createNewDocument(ACCUData);
       return(ACCUData);
     } else if(ACCUData && update) {
+      // update
       await findAndUpdate(ACCUData, url);
       return(ACCUData);
+    }
+  } else if(url === SMH_URL) {
+    await page.goto(url);
+    const SMHData = await scrapeSMH.getData(page);
+    browser.close();
+    if(SMHData && !update) {
+      // new
+      await createNewDocument(SMHData);
+      return(SMHData);
+    } else if(SMHData && update) {
+      // update
+      await findAndUpdate(SMHData, url);
+      return(SMHData);
     }
   }
   browser.close();

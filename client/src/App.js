@@ -11,6 +11,7 @@ function App() {
       <div className="app-weather-container">
         <Weather site={'bom.gov.au'}/>
         <Weather site={'accuweather.com'}/>
+        <Weather site={'weather.smh.com.au'}/>
       </div>
     </div>
   );

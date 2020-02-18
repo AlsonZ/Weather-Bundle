@@ -4,8 +4,8 @@ exports.getData = async function(page, url) {
   const days = 7;
   for(let dayID = 0;dayID<days;dayID++) {
     const day = dayID+1;
-    await page.goto(url+"?day="+day);
-    // console.log(page.url());
+    // await page.goto(url+"?day="+day);
+    await page.goto(`${url}?day=${day}`);
     let dayData = {
       day: "-",
       image: "-",
@@ -21,7 +21,6 @@ exports.getData = async function(page, url) {
     await getDay(props);
     daysData[dayID] = dayData;
   }
-  console.log(daysData);
   return (daysData);
 }
 

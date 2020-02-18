@@ -1,17 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400&display=swap');
+
 .weather-container {
   width: 14rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
-  border: 1px solid;
   margin: 1rem;
 }
 .weather-url {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 500;
-  color: rgb(107, 206, 240);
+  color: rgba(107, 207, 240, 0.575);
   text-decoration: none;
+  font-family: 'Lato', sans-serif;
 }
 .weather-card-container {
   width: 95%;
@@ -19,13 +20,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid blue;
-  margin-top: 0.5rem;
+  border-bottom: 1px solid lightgrey;
   margin-bottom: 0.5rem;
+  padding-bottom: 1rem;
 }
 .weather-card-day {
   text-align: center;
   font-size: 1.4rem;
+  margin: 0.3rem;
+  margin-top: 0.4rem;
+  font-family: 'Lato', sans-serif;
 }
 .weather-card-content {
   justify-content: center;
@@ -36,9 +40,11 @@
   display: flex;
   width: 100%;
   flex-direction: row;
-  border: 1px solid;
+  border: 1px solid lightgrey;
   justify-content: space-around;
   align-items: center;
+  border-radius: 0.7rem;
+  margin-bottom: 0.3rem;
 }
 .weather-card-image {
   height: 3.2rem;
@@ -46,6 +52,7 @@
 }
 .weather-card-temp {
   font-size: 1.2rem;
+  font-family: 'Lato', sans-serif;
 }
 
 .weather-card-info-container {

@@ -7,7 +7,6 @@ function Weather(props) {
   const [weatherInfo, setWeatherInfo] = useState([]);
 
   useEffect(() => {
-    //fetch weather site 1 data
     async function fetchURL(url) {
       const res = await fetch('/weatherAPI/getURL/'+url);
       const resData = await res.json();
@@ -15,7 +14,6 @@ function Weather(props) {
         console.log(resData);
         setWeatherInfo(resData);
       }
-      
     }
     if(props.site) {
       fetchURL(props.site);
