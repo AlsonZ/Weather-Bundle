@@ -25,7 +25,7 @@ router.get('/getURL/:url', async(req, res) => {
 })
 
 async function scrape(url, update) {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ args: ['--no-sandbox']});
   const page = await browser.newPage();
   const createNewDocument = async (data) => {
     const weatherData = new Weather({
