@@ -1,4 +1,5 @@
 exports.getData = async function(page) {
+  page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
   const daysData = [];
   const days = 7;
   for(let dayID = 0;dayID<days;dayID++) {
