@@ -13,8 +13,8 @@ exports.getData = async function(page) {
       UVIndex: "-"
     }
     const props = {page, dayData, dayID};
-    await getImage(props);
     await getAll(props);
+    await getImage(props);
     daysData[dayID] = dayData;
   }
 
@@ -69,8 +69,15 @@ const getAll = async ({page, dayData, dayID}) => {
 }
 
 const getImage = async ({page, dayData, dayID}) => {
-  const elements = await page.$x(`//*[contains(@class, "day")]//dd[@class="image"]/img`);
-  const raw = await elements[dayID].getProperty('src');
-  const src = await raw.jsonValue();
-  dayData.image = src;
+  try {
+    console.log('this is dayID '+dayID+" this is dayData "+dayData.day);
+    const elements = await page.$x(`//*[contains(@class, "day")]//dd[@class="image"]/img`);
+    const raw = await elements[dayID].getProperty('src');
+    console.log('this is the raw '+raw);
+    const src = await raw.jsonValue();
+    console.log('this is the src '+src);
+    dayData.image = src;
+  } catch (error) {
+    console.log(error);
+  }
 }
