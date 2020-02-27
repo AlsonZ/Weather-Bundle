@@ -2,7 +2,7 @@ exports.getData = async function(page) {
   page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
   const daysData = [];
   const days = 7;
-  await testHTML(page);
+  let errorHappened = false;
   for(let dayID = 0;dayID<days;dayID++) {
     let dayData = {
       day: "-",
@@ -20,19 +20,14 @@ exports.getData = async function(page) {
       await getImage(props);
     } catch (error) {
       console.log(error);
+      errorHappened = true;
     }
     daysData[dayID] = dayData;
   }
-
+  if(errorHappened) {
+    return null;
+  }
   return (daysData);
-}
-const testHTML = async (page) => {
-  const elements = await page.$x(`/html`);
-  const raw = await elements[0].getProperty('innerHTML');
-  const value = await raw.jsonValue();
-  console.log('-------------------------------------------------------------');
-  console.log(value);
-  console.log('-------------------------------------------------------------');
 }
 
 const getAll = async ({page, dayData, dayID}) => {
@@ -83,11 +78,8 @@ const getAll = async ({page, dayData, dayID}) => {
 }
 
 const getImage = async ({page, dayData, dayID}) => {
-  console.log('this is dayID '+dayID+" this is dayData "+dayData.day);
   const elements = await page.$x(`//*[contains(@class, "day")]//dd[@class="image"]/img`);
   const raw = await elements[dayID].getProperty('src');
-  console.log('this is the raw '+raw);
   const src = await raw.jsonValue();
-  console.log('this is the src '+src);
   dayData.image = src;
 }
