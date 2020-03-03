@@ -5,6 +5,8 @@ import './weather.css';
 function Weather(props) {
 
   const [weatherInfo, setWeatherInfo] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function fetchURL(url) {
@@ -12,22 +14,33 @@ function Weather(props) {
       const resData = await res.json();
       if(resData) {
         console.log(resData);
-        setWeatherInfo(resData);
+        if(resData === "Access Denied") {
+          setError(true);
+        } else {
+          setWeatherInfo(resData);
+        }
       }
     }
     if(props.site) {
       fetchURL(props.site);
     }
-  },[])
+  },[]);
+  useEffect(() => {
+    if(weatherInfo.length > 0) {
+      setLoaded(true);
+    }
+  }, [weatherInfo]) 
 
   return (
     <div className="weather-container">
       <a href={"http://www."+props.site} className="weather-url">
         {props.site}
       </a>
-      {weatherInfo.map((weather,i) =>
-        <WeatherCard key={i} weather={weather}/>
-      )}
+        {error && <div>Access Denied</div>}
+        {!loaded && !error && <div>Loading...</div> }
+        {loaded && weatherInfo.map((weather,i) =>
+          <WeatherCard key={i} weather={weather}/>
+        )}
     </div>
   );
 }

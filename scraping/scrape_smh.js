@@ -2,6 +2,7 @@ exports.getData = async function(page) {
   
   const days = 7;
   const daysData = [];
+  let errorHappened = false;
   for(let dayID = 0;dayID<days;dayID++) {
     let dayData = {
       day: "-",
@@ -19,8 +20,16 @@ exports.getData = async function(page) {
   await getDay(props);
   for(let row = 0; row<daysData.length;row++) {
     const props = {page, daysData, row};
-    await getImage(props);
-    await getAll(props);
+    try {
+      await getImage(props);
+      await getAll(props);
+    } catch (error) {
+      console.log(error);
+      errorHappened = true;
+    }
+  }
+  if(errorHappened) {
+    return null;
   }
   return (daysData);
 }

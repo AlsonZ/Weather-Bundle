@@ -59,7 +59,7 @@ const getAll = async ({page, dayData, dayID}) => {
         string += values[i]+" ";
       }
       dayData.rainAmount = string;
-    } else if (element.includes("rain")) {
+    } else if (element.includes("any rain:")) {
       const values = element.split(" ");
       dayData.rainChance = values[4];
     } else if (element.includes("Fire Danger")) {

@@ -1,7 +1,8 @@
 exports.getData = async function(page, url) {
-  page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
+  // page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
   const daysData = [];
   const days = 7;
+  let errorHappened = false;
   for(let dayID = 0;dayID<days;dayID++) {
     const day = dayID+1;
     // await page.goto(url+"?day="+day);
@@ -17,9 +18,17 @@ exports.getData = async function(page, url) {
       UVIndex: "-"
     }
     const props = {page, dayData};
-    await getImage(props);
-    await getDay(props);
+    try {
+      await getImage(props);
+      await getDay(props);
+    } catch (error) {
+      console.log(error);
+      errorHappened = true;
+    }
     daysData[dayID] = dayData;
+  }
+  if(errorHappened) {
+    return null;
   }
   return (daysData);
 }

@@ -65,6 +65,8 @@ async function scrape(url, update) {
       // update
       await findAndUpdate(BOMData, url);
       return(BOMData);
+    } else {
+      return('Access Denied');
     }
   } else if(url === ACCU_URL) {
     const ACCUData = await scrapeACCU.getData(page, url);
@@ -77,6 +79,8 @@ async function scrape(url, update) {
       // update
       await findAndUpdate(ACCUData, url);
       return(ACCUData);
+    } else {
+      return('Access Denied');
     }
   } else if(url === SMH_URL) {
     await page.goto(url);
@@ -90,6 +94,8 @@ async function scrape(url, update) {
       // update
       await findAndUpdate(SMHData, url);
       return(SMHData);
+    } else {
+      return('Access Denied');
     }
   }
   browser.close();
