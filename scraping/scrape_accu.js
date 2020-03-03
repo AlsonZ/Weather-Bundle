@@ -5,8 +5,6 @@ exports.getData = async function(page, url) {
   let errorHappened = false;
   for(let dayID = 0;dayID<days;dayID++) {
     const day = dayID+1;
-    // await page.goto(url+"?day="+day);
-    await page.goto(`${url}?day=${day}`);
     let dayData = {
       day: "-",
       image: "-",
@@ -16,14 +14,17 @@ exports.getData = async function(page, url) {
       rainAmount: "-",
       fireDanger: "-",
       UVIndex: "-"
-    }
-    const props = {page, dayData};
+    };
+    // await page.goto(url+"?day="+day);
     try {
+      await page.goto(`${url}?day=${day}`);
+      const props = {page, dayData};
       await getImage(props);
       await getDay(props);
     } catch (error) {
       console.log(error);
       errorHappened = true;
+      break;
     }
     daysData[dayID] = dayData;
   }

@@ -3,11 +3,10 @@
 .weather-container {
   min-width: 14rem;
   max-width: 14rem;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   margin: auto;
   display: inline-block;
+  vertical-align: top;
 }
 .weather-url {
   font-size: 1rem;
