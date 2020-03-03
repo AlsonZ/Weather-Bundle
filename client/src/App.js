@@ -8,7 +8,7 @@ function App() {
       <h1 className="app-weather-title">
         Sydney Weather Forecast
       </h1>
-      <div className="app-weather-container">
+      <div>
         <Weather site={'bom.gov.au'}/>
         <Weather site={'accuweather.com'}/>
         <Weather site={'weather.smh.com.au'}/>

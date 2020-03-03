@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400&display=swap');
 
 .weather-container {
-  width: 14rem;
+  min-width: 14rem;
+  max-width: 14rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1rem;
+  margin: auto;
+  display: inline-block;
 }
 .weather-url {
   font-size: 1rem;
